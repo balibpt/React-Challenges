@@ -1,24 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 
+function SumOfTwo(props) {
+  return(
+    <p>{Number(props.props1) + Number(props.props2)}</p>
+  )
+}
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SumOfTwo props1="2" props2="4"/>
   );
 }
 
