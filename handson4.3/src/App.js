@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+
+class Dice extends React.Component {
+  state = {
+    num: 1
+  }
+
+  rollDice = () => {
+    this.setState({
+      num: Math.floor(Math.random() * 6) + 1
+    })
+  }
+
+  render() {
+    return(
+      <div style={{border: "2px solid black", height: "300px", width: "500px"}}>
+        <h2>{this.state.num}</h2>
+        <button onClick={this.rollDice}>Roll Dice</button>
+      </div>
+    )
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Dice />
   );
 }
 
