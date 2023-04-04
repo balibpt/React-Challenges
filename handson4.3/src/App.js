@@ -16,7 +16,7 @@ class Dice extends React.Component {
   render() {
     return(
       <div style={{border: "2px solid black", height: "300px", width: "500px"}}>
-        <h2>{this.state.num}</h2>
+        <h2 style={{color: this.state.num === 1 ? "red" : this.state.num === 6 ? "green" : "black"}}>{this.state.num}</h2>
         <button onClick={this.rollDice}>Roll Dice</button>
       </div>
     )
