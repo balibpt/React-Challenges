@@ -10,7 +10,7 @@ class AlertBox extends React.Component {
   render() {
     return(
       <div style={{"border": "4px solid black"}}>
-        <p>{this.state.msg}</p>
+        <p>{this.props.msg}</p>
       </div>
     )
   }
@@ -18,7 +18,7 @@ class AlertBox extends React.Component {
 
 function App() {
   return (
-    <AlertBox />
+    <AlertBox msg="Hello"/>
   );
 }
 
