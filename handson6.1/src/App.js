@@ -1,38 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react'
+import axios from 'axios'
 
 
 class Form extends React.Component {
-  seatings = [
-    "outdoors",
-    "indoors",
-    "VIP indoors"
-  ]
-
-  smoking = [
-    "Smoking",
-    "Non-smoking"
-  ]
-
-  appetizers = [
-    "raw fishes",
-    "salad",
-    "fried cuttlefish",
-    "peanuts"
-  ]
 
   state = {
     firstName: "",
     lastName: "",
     seating: "",
     smoking: "Smoking",
-    appetizers: []
+    appetizers: [],
+    seatingOptions: [],
+    appetizerOptions: [],
+    smokingOptions: [],
   }
 
   seatingRadioButtons() {
     let options = []
-    for(let seating of this.seatings) {
+    for(let seating of this.state.seatingOptions) {
       let e = <div key={seating}>
         <input type="radio" name="seating" value={seating} onChange={this.handleSeatingChange.bind(this)}/>{seating}
       </div>
@@ -79,6 +66,23 @@ class Form extends React.Component {
     }
   }
 
+  loadInfo = async () => {
+   const appetizersResponse = await axios.get('appetizers.json')
+   const seatingsResponse = await axios.get('seatings.json')
+   const smokingResponse = await axios.get('smoking.json')
+   console.log(appetizersResponse.data)
+
+    this.setState({
+      appetizerOptions: appetizersResponse.data,
+      seatingOptions: seatingsResponse.data,
+      smokingOptions: smokingResponse.data
+    })
+  }
+
+  componentDidMount() {
+    this.loadInfo()
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -95,7 +99,7 @@ class Form extends React.Component {
         <div>
           <label>Smoking: </label>
           <select name="smoking" onChange={this.handleSmokingChange.bind(this)}>
-          {this.smoking.map(function(smoke) {
+          {this.state.smokingOptions.map(function(smoke) {
             return(
               <option key={smoke} name="smoking" value={smoke}>{smoke}</option>
             )
@@ -104,7 +108,7 @@ class Form extends React.Component {
         </div>
         <div>
           <label>Appetizers: </label>
-          {this.appetizers.map((appetizer, index) =>{
+          {this.state.appetizerOptions.map((appetizer, index) =>{
             return(
               <div key={index}>
                 <input type="checkbox" name="appetizer" value={appetizer} checked={this.state.appetizers.includes(appetizer)} onChange={this.handleAppetizerChange} />
